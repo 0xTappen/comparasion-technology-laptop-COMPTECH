@@ -29,7 +29,7 @@ export default function HeroSection() {
           Komparasi metode <span className="bg-brutal-green px-1.5 border-2 border-black font-bold">SAW</span> dan{" "}
           <span className="bg-brutal-pink px-1.5 border-2 border-black font-bold text-white">TOPSIS</span>{" "}
           dalam evaluasi sistematis variabel teknis laptop untuk menunjang performa coding, IDE, virtualisasi,
-          dan data science bagi mahasiswa Teknik Informatika.
+          dan data science bagi mahasiswa Informatika.
         </p>
 
         {/* Authors */}

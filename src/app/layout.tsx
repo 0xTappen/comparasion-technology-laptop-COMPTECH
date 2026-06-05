@@ -4,7 +4,7 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "SPK Pemilihan Laptop Informatika — SAW vs TOPSIS",
   description:
-    "Sistem Pendukung Keputusan Komparasi Metode SAW dan TOPSIS untuk Pemilihan Laptop Mahasiswa Teknik Informatika. Oleh Jagarya Vanneska, Dionisius Avendrata Putra, dan Erwin Wijaya — Universitas Teknokrat Indonesia.",
+    "Sistem Pendukung Keputusan Komparasi Metode SAW dan TOPSIS untuk Pemilihan Laptop Mahasiswa Informatika. Oleh Jagarya Vanneska, Dionisius Avendrata Putra, dan Erwin Wijaya — Universitas Teknokrat Indonesia.",
   keywords: [
     "SPK",
     "Decision Support System",
@@ -19,6 +19,14 @@ export const metadata: Metadata = {
     { name: "Dionisius Avendrata Putra" },
     { name: "Erwin Wijaya" },
   ],
+  manifest: "/site.webmanifest",
+  icons: {
+    icon: [
+      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+    ],
+    apple: "/apple-touch-icon.png",
+  },
 };
 
 export default function RootLayout({
