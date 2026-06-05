@@ -4,14 +4,34 @@ import { LaptopData } from "./calculations";
 export function parseExcelData(data: ArrayBuffer): LaptopData[] {
   const workbook = XLSX.read(data, { type: "array" });
 
-  // Find the data sheet
-  const sheetName =
-    workbook.SheetNames.find((n) => n.includes("Data Laptop")) ||
-    workbook.SheetNames[0];
+  // Find the data sheet by looking for common names, or just take the sheet with the most rows if uncertain
+  let sheetName = workbook.SheetNames.find(
+    (n) => n.toLowerCase().includes("data") || n.toLowerCase().includes("laptop")
+  );
+  
+  if (!sheetName) {
+    // Fallback: use the first sheet
+    sheetName = workbook.SheetNames[0];
+  }
   const sheet = workbook.Sheets[sheetName];
 
-  // Convert to JSON with headers
-  const jsonData = XLSX.utils.sheet_to_json<Record<string, unknown>>(sheet);
+  // Convert to array first to find the actual header row (ignoring title rows)
+  const rawRows = XLSX.utils.sheet_to_json<unknown[]>(sheet, { header: 1 });
+  
+  let headerRowIndex = 0;
+  for (let i = 0; i < rawRows.length; i++) {
+    const rowStr = String(rawRows[i]).toLowerCase();
+    if (
+      (rowStr.includes("nama") || rowStr.includes("laptop") || rowStr.includes("model")) &&
+      (rowStr.includes("harga") || rowStr.includes("price") || rowStr.includes("estimasi"))
+    ) {
+      headerRowIndex = i;
+      break;
+    }
+  }
+
+  // Convert to JSON with headers starting from the detected header row
+  const jsonData = XLSX.utils.sheet_to_json<Record<string, unknown>>(sheet, { range: headerRowIndex });
 
   return jsonData
     .map((row, index) => {

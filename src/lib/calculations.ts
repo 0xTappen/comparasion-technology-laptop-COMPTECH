@@ -83,8 +83,12 @@ export const CRITERIA: CriteriaWeight[] = [
 
 // Convert a laptop row to numeric criteria values
 function toNumericValues(laptop: LaptopData): number[] {
-  const cpuScore = CPU_SCORES[laptop.cpu] ?? 20;
-  const gpuScore = GPU_SCORES[laptop.gpu] ?? 10;
+  const parsedCpu = parseFloat(laptop.cpu);
+  const cpuScore = !isNaN(parsedCpu) ? parsedCpu : (CPU_SCORES[laptop.cpu] ?? 20);
+  
+  const parsedGpu = parseFloat(laptop.gpu);
+  const gpuScore = !isNaN(parsedGpu) ? parsedGpu : (GPU_SCORES[laptop.gpu] ?? 10);
+  
   return [laptop.price, cpuScore, laptop.ram, laptop.storage, gpuScore];
 }
 
