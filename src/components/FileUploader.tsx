@@ -47,13 +47,13 @@ export default function FileUploader({ onDataLoaded, dataCount, isLoading, setIs
   const handleLoadDefault = useCallback(async () => {
     setIsLoading(true);
     try {
-      const res = await fetch("/Dataset_100_Laptop_SPK_Informatika.xlsx");
-      if (!res.ok) throw new Error("File not found in /public");
+      const res = await fetch("/api/dataset");
+      if (!res.ok) throw new Error("File not found in /api/dataset");
       const buffer = await res.arrayBuffer();
       processFile(buffer);
     } catch (err) {
       console.error("Error loading default:", err);
-      alert("File default tidak ditemukan di /public folder.");
+      alert("File default tidak ditemukan di folder /dataset.");
       setIsLoading(false);
     }
   }, [processFile, setIsLoading]);
