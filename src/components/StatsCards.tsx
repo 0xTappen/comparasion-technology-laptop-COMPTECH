@@ -37,6 +37,7 @@ export default function StatsCards({ results }: Props) {
       value: stats.sawTop.name,
       sub: `Score: ${stats.sawTop.sawScore.toFixed(4)}`,
       color: "bg-brutal-green",
+      isMarquee: true,
     },
     {
       icon: Award,
@@ -44,6 +45,7 @@ export default function StatsCards({ results }: Props) {
       value: stats.topsisTop.name,
       sub: `Score: ${stats.topsisTop.topsisScore.toFixed(4)}`,
       color: "bg-brutal-pink",
+      isMarquee: true,
     },
     {
       icon: TrendingUp,
@@ -51,6 +53,7 @@ export default function StatsCards({ results }: Props) {
       value: stats.spearman.toFixed(4),
       sub: stats.spearman > 0.8 ? "Korelasi Kuat" : stats.spearman > 0.5 ? "Korelasi Sedang" : "Korelasi Lemah",
       color: "bg-brutal-cyan",
+      isMarquee: false,
     },
     {
       icon: Shuffle,
@@ -58,6 +61,7 @@ export default function StatsCards({ results }: Props) {
       value: stats.avgDelta.toFixed(2),
       sub: `Max: ${stats.maxDelta} | Sama: ${stats.zeroDelta}`,
       color: "bg-brutal-yellow",
+      isMarquee: false,
     },
   ];
 
@@ -66,13 +70,26 @@ export default function StatsCards({ results }: Props) {
       {cards.map((card) => (
         <div
           key={card.label}
-          className={`brutal-card brutal-hover ${card.color} p-5`}
+          className={`brutal-card brutal-hover ${card.color} p-5 overflow-hidden`}
         >
           <div className="flex items-center gap-2 mb-3">
             <card.icon size={18} />
             <span className="text-xs font-mono font-bold uppercase tracking-wide">{card.label}</span>
           </div>
-          <p className="text-xl font-bold leading-tight truncate">{card.value}</p>
+          
+          {card.isMarquee ? (
+            <div className="overflow-hidden whitespace-nowrap relative w-full mask-linear-fade">
+              <div className="inline-block animate-marquee hover:[animation-play-state:paused] cursor-default">
+                <span className="text-xl font-bold leading-tight">{card.value}</span>
+                <span className="text-xl font-bold leading-tight mx-6 opacity-50">✦</span>
+                <span className="text-xl font-bold leading-tight">{card.value}</span>
+                <span className="text-xl font-bold leading-tight mx-6 opacity-50">✦</span>
+              </div>
+            </div>
+          ) : (
+            <p className="text-xl font-bold leading-tight truncate">{card.value}</p>
+          )}
+          
           <p className="text-xs mt-1 opacity-70 font-mono">{card.sub}</p>
         </div>
       ))}
