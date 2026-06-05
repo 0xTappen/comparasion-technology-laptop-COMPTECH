@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { LaptopData } from "@/lib/calculations";
 import { ChevronLeft, ChevronRight, Search } from "lucide-react";
 
@@ -18,6 +18,11 @@ const CATEGORY_COLORS: Record<string, string> = {
 export default function DatasetTable({ data }: Props) {
   const [page, setPage] = useState(0);
   const [search, setSearch] = useState("");
+
+  // Auto-reset page when the parent data (from filters) changes
+  useEffect(() => {
+    setPage(0);
+  }, [data]);
 
   const filtered = data.filter(
     (l) =>
