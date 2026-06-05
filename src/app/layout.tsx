@@ -27,8 +27,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="id" className="scroll-smooth">
-      <body className="min-h-screen grid-pattern">{children}</body>
+    <html lang="id" className="scroll-smooth" suppressHydrationWarning>
+      <body className="min-h-screen grid-pattern" suppressHydrationWarning>
+        {children}
+      </body>
     </html>
   );
 }
