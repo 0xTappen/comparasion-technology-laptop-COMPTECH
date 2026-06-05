@@ -24,83 +24,95 @@
   --shadow-brutal-lg: 12px 12px 0px rgba(0, 0, 0, 1);
 }
 
-* {
-  box-sizing: border-box;
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    background: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Neo-Brutalism scrollbar */
+  ::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--color-background);
+    border-left: 3px solid #000;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #000;
+    border: 2px solid var(--color-background);
+  }
+
+  /* Brutal selection */
+  ::selection {
+    background: var(--color-brutal-yellow);
+    color: #000;
+  }
 }
 
-body {
-  background: var(--color-background);
-  color: var(--color-foreground);
-  font-family: var(--font-sans);
-  -webkit-font-smoothing: antialiased;
+@layer components {
+  /* Brutal button hover effect */
+  .brutal-hover {
+    transition: transform 0.1s ease, box-shadow 0.1s ease;
+  }
+  .brutal-hover:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 10px 10px 0px rgba(0, 0, 0, 1);
+  }
+  .brutal-hover:active {
+    transform: translate(2px, 2px);
+    box-shadow: 4px 4px 0px rgba(0, 0, 0, 1);
+  }
+
+  /* Brutal card */
+  .brutal-card {
+    border: 4px solid #000;
+    box-shadow: 8px 8px 0px rgba(0, 0, 0, 1);
+  }
+
+  /* Brutal table */
+  .brutal-table {
+    border-collapse: separate;
+    border-spacing: 0;
+  }
+  .brutal-table th,
+  .brutal-table td {
+    border: 2px solid #000;
+    padding: 0.75rem 1rem;
+  }
+  .brutal-table thead th {
+    border-bottom: 4px solid #000;
+  }
+
+  /* Brutal input */
+  .brutal-input {
+    border: 3px solid #000;
+    box-shadow: 4px 4px 0px rgba(0, 0, 0, 1);
+    outline: none;
+    transition: transform 0.1s ease, box-shadow 0.1s ease;
+  }
+  .brutal-input:focus {
+    transform: translate(-1px, -1px);
+    box-shadow: 6px 6px 0px rgba(0, 0, 0, 1);
+  }
+
+  /* Grid pattern background */
+  .grid-pattern {
+    background-image:
+      linear-gradient(rgba(0, 0, 0, 0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0, 0, 0, 0.06) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
 }
 
-/* Neo-Brutalism scrollbar */
-::-webkit-scrollbar {
-  width: 12px;
-  height: 12px;
-}
-::-webkit-scrollbar-track {
-  background: var(--color-background);
-  border-left: 3px solid #000;
-}
-::-webkit-scrollbar-thumb {
-  background: #000;
-  border: 2px solid var(--color-background);
-}
-
-/* Brutal selection */
-::selection {
-  background: var(--color-brutal-yellow);
-  color: #000;
-}
-
-/* Brutal button hover effect */
-.brutal-hover {
-  transition: transform 0.1s ease, box-shadow 0.1s ease;
-}
-.brutal-hover:hover {
-  transform: translate(-2px, -2px);
-  box-shadow: 10px 10px 0px rgba(0, 0, 0, 1);
-}
-.brutal-hover:active {
-  transform: translate(2px, 2px);
-  box-shadow: 4px 4px 0px rgba(0, 0, 0, 1);
-}
-
-/* Brutal card */
-.brutal-card {
-  border: 4px solid #000;
-  box-shadow: 8px 8px 0px rgba(0, 0, 0, 1);
-}
-
-/* Brutal table */
-.brutal-table {
-  border-collapse: separate;
-  border-spacing: 0;
-}
-.brutal-table th,
-.brutal-table td {
-  border: 2px solid #000;
-  padding: 0.75rem 1rem;
-}
-.brutal-table thead th {
-  border-bottom: 4px solid #000;
-}
-
-/* Brutal input */
-.brutal-input {
-  border: 3px solid #000;
-  box-shadow: 4px 4px 0px rgba(0, 0, 0, 1);
-  outline: none;
-  transition: transform 0.1s ease, box-shadow 0.1s ease;
-}
-.brutal-input:focus {
-  transform: translate(-1px, -1px);
-  box-shadow: 6px 6px 0px rgba(0, 0, 0, 1);
-}
-
-/* Animated gradient background */
+/* Animations — outside layers since they are global */
 @keyframes gradientShift {
   0%, 100% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
@@ -111,15 +123,6 @@ body {
   animation: gradientShift 8s ease infinite;
 }
 
-/* Grid pattern background */
-.grid-pattern {
-  background-image:
-    linear-gradient(rgba(0, 0, 0, 0.06) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 0, 0, 0.06) 1px, transparent 1px);
-  background-size: 24px 24px;
-}
-
-/* Marquee text */
 @keyframes marquee {
   0% { transform: translateX(0); }
   100% { transform: translateX(-50%); }
@@ -128,7 +131,6 @@ body {
   animation: marquee 20s linear infinite;
 }
 
-/* Pulse glow for active elements */
 @keyframes pulseGlow {
   0%, 100% { box-shadow: 8px 8px 0px rgba(0, 0, 0, 1); }
   50% { box-shadow: 8px 8px 0px rgba(0, 0, 0, 0.6), 0 0 20px rgba(255, 225, 86, 0.4); }
@@ -137,7 +139,6 @@ body {
   animation: pulseGlow 2s ease-in-out infinite;
 }
 
-/* Floating animation */
 @keyframes float {
   0%, 100% { transform: translateY(0px); }
   50% { transform: translateY(-6px); }
@@ -146,7 +147,6 @@ body {
   animation: float 3s ease-in-out infinite;
 }
 
-/* Counter animation */
 @keyframes countUp {
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
