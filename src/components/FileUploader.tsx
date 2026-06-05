@@ -73,8 +73,8 @@ export default function FileUploader({ onDataLoaded, dataCount, isLoading, setIs
           className="brutal-hover border-4 border-black bg-brutal-cyan p-6 shadow-[8px_8px_0px_rgba(0,0,0,1)] flex flex-col items-center gap-3 text-center disabled:opacity-50 cursor-pointer"
         >
           <Upload size={32} />
-          <span className="font-bold text-lg">Upload File Excel</span>
-          <span className="text-sm opacity-70">Pilih file .xlsx dari komputer</span>
+          <span className="font-bold text-lg">Unggah Dokumen Dataset</span>
+          <span className="text-sm opacity-70">Pilih berkas format .xlsx dari perangkat Anda</span>
         </button>
         <input
           ref={fileInputRef}
@@ -91,8 +91,8 @@ export default function FileUploader({ onDataLoaded, dataCount, isLoading, setIs
           className="brutal-hover border-4 border-black bg-brutal-yellow p-6 shadow-[8px_8px_0px_rgba(0,0,0,1)] flex flex-col items-center gap-3 text-center disabled:opacity-50 cursor-pointer"
         >
           <Database size={32} />
-          <span className="font-bold text-lg">Load Dataset Default</span>
-          <span className="text-sm opacity-70">1000 Laptop SPK Informatika</span>
+          <span className="font-bold text-lg">Gunakan Dataset Bawaan</span>
+          <span className="text-sm opacity-70">Memuat 1.000 data alternatif laptop</span>
         </button>
       </div>
 

@@ -17,7 +17,7 @@ export default function Navbar() {
     <nav className="fixed top-0 left-0 right-0 z-50 bg-brutal-yellow border-b-4 border-black">
       <div className="max-w-7xl mx-auto px-4 flex items-center justify-between h-16">
         <a href="#hero" className="font-bold text-xl tracking-tight flex items-center gap-2">
-          <span className="bg-black text-brutal-yellow px-2 py-1 text-sm font-mono">SPK</span>
+          <span className="bg-black text-brutal-yellow px-2 py-1 text-sm font-mono">APP</span>
           <span className="hidden sm:inline">COMPTECH</span>
         </a>
         <div className="hidden md:flex items-center gap-1">

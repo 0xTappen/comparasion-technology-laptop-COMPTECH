@@ -2,11 +2,11 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "SPK Pemilihan Laptop Informatika — SAW vs TOPSIS",
+  title: "Sistem Pemilihan Laptop Terbaik — SAW vs TOPSIS",
   description:
-    "Sistem Pendukung Keputusan Komparasi Metode SAW dan TOPSIS untuk Pemilihan Laptop Mahasiswa Informatika. Oleh Jagarya Vanneska, Dionisius Avendrata Putra, dan Erwin Wijaya — Universitas Teknokrat Indonesia.",
+    "Sistem Rekomendasi Komparasi Metode SAW dan TOPSIS untuk Pemilihan Laptop Mahasiswa Informatika. Oleh Jagarya Vanneska, Dionisius Avendrata Putra, dan Erwin Wijaya — Universitas Teknokrat Indonesia.",
   keywords: [
-    "SPK",
+    "Rekomendasi",
     "Decision Support System",
     "SAW",
     "TOPSIS",

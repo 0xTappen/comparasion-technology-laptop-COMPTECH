@@ -6,6 +6,7 @@ import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
 import KriteriaSection from "@/components/KriteriaSection";
 import FileUploader from "@/components/FileUploader";
+import DatasetFilter, { FilterOptions } from "@/components/DatasetFilter";
 import DatasetTable from "@/components/DatasetTable";
 import StatsCards from "@/components/StatsCards";
 import ResultsTable from "@/components/ResultsTable";
@@ -17,11 +18,32 @@ import { FlaskConical } from "lucide-react";
 export default function Home() {
   const [laptopData, setLaptopData] = useState<LaptopData[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [filters, setFilters] = useState<FilterOptions>({
+    maxPrice: 0,
+    minRam: 0,
+    minStorage: 0,
+    category: "All",
+  });
+
+  const uniqueCategories = useMemo(() => {
+    const cats = new Set(laptopData.map(l => l.category));
+    return Array.from(cats).sort();
+  }, [laptopData]);
+
+  const filteredLaptopData = useMemo(() => {
+    return laptopData.filter((l) => {
+      if (filters.maxPrice > 0 && l.price > filters.maxPrice) return false;
+      if (filters.minRam > 0 && l.ram < filters.minRam) return false;
+      if (filters.minStorage > 0 && l.storage < filters.minStorage) return false;
+      if (filters.category !== "All" && l.category !== filters.category) return false;
+      return true;
+    });
+  }, [laptopData, filters]);
 
   const results: RankedLaptop[] = useMemo(() => {
-    if (laptopData.length === 0) return [];
-    return combineResults(laptopData);
-  }, [laptopData]);
+    if (filteredLaptopData.length === 0) return [];
+    return combineResults(filteredLaptopData);
+  }, [filteredLaptopData]);
 
   return (
     <>
@@ -38,7 +60,7 @@ export default function Home() {
                 <span>•</span>
                 <span className="text-brutal-pink">★ TOPSIS METHOD</span>
                 <span>•</span>
-                <span className="text-brutal-cyan">★ 100 LAPTOP DATASET</span>
+                <span className="text-brutal-cyan">★ 1000 LAPTOP DATASET</span>
                 <span>•</span>
                 <span className="text-brutal-green">★ MULTI-CRITERIA DECISION</span>
                 <span>•</span>
@@ -75,7 +97,14 @@ export default function Home() {
             />
 
             {laptopData.length > 0 && (
-              <DatasetTable data={laptopData} />
+              <>
+                <DatasetFilter 
+                  filters={filters} 
+                  setFilters={setFilters} 
+                  categories={uniqueCategories} 
+                />
+                <DatasetTable data={filteredLaptopData} />
+              </>
             )}
           </div>
         </section>

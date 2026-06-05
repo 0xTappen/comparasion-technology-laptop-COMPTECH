@@ -5,11 +5,11 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
           <div>
             <div className="flex items-center gap-2 mb-3">
-              <span className="bg-brutal-yellow text-black px-2 py-1 text-sm font-mono font-bold">SPK</span>
+              <span className="bg-brutal-yellow text-black px-2 py-1 text-sm font-mono font-bold">APP</span>
               <span className="font-bold">COMPTECH</span>
             </div>
             <p className="text-sm text-gray-400 leading-relaxed">
-              Sistem Pendukung Keputusan Komparasi Laptop untuk Mahasiswa Informatika
+              Sistem Rekomendasi Komparasi Laptop untuk Mahasiswa Informatika
               menggunakan metode SAW dan TOPSIS.
             </p>
           </div>
@@ -29,7 +29,7 @@ export default function Footer() {
         </div>
         <div className="border-t border-gray-700 pt-4 flex flex-col sm:flex-row items-center justify-between gap-2">
           <p className="text-xs text-gray-500">
-            © {new Date().getFullYear()} SPK COMPTECH — Academic Research Project
+            © {new Date().getFullYear()} COMPTECH — Academic Research Project
           </p>
           <div className="flex items-center gap-3 text-xs text-gray-500">
             <span>Built with Next.js + Tailwind CSS</span>

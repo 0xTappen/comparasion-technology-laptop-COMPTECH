@@ -12,15 +12,15 @@ export default function HeroSection() {
         {/* Badge */}
         <div className="inline-flex items-center gap-2 bg-brutal-cyan border-3 border-black px-4 py-2 text-sm font-bold shadow-[4px_4px_0px_rgba(0,0,0,1)] mb-6">
           <Zap size={16} className="fill-current" />
-          SISTEM PENDUKUNG KEPUTUSAN
+          SISTEM REKOMENDASI
         </div>
 
         {/* Main Title */}
         <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold leading-[0.95] tracking-tight mb-6">
-          SPK Pemilihan
+          Sistem Pemilihan
           <br />
           <span className="bg-brutal-yellow px-3 py-1 inline-block border-4 border-black shadow-[6px_6px_0px_rgba(0,0,0,1)] mt-2 -rotate-1">
-            Laptop Informatika
+            Laptop Terbaik
           </span>
         </h1>
 
