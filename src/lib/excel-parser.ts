@@ -49,8 +49,17 @@ export function parseExcelData(data: ArrayBuffer): LaptopData[] {
       const name = String(findVal(["nama", "laptop", "model", "merk"]) || "Unknown Laptop");
       const category = String(findVal(["kategori", "category", "tipe"]) || "General");
       const cpu = String(findVal(["processor", "cpu"]) || "Unknown CPU");
-      const ram = Number(findVal(["ram", "memory"])) || 8;
-      const storage = Number(findVal(["storage", "ssd", "hdd", "rom"])) || 512;
+      const ramRaw = String(findVal(["ram", "memory"]) || "");
+      const ramMatch = ramRaw.match(/\d+/);
+      const ram = ramMatch ? parseInt(ramMatch[0], 10) : 8;
+
+      const storageRaw = String(findVal(["storage", "ssd", "hdd", "rom"]) || "").toLowerCase();
+      const storageMatch = storageRaw.match(/\d+/);
+      let storage = 512;
+      if (storageMatch) {
+        storage = parseInt(storageMatch[0], 10);
+        if (storage < 10) storage *= 1000; // Convert 1TB/2TB to 1000GB/2000GB
+      }
       const gpu = String(findVal(["gpu", "vga", "grafis", "graphic"]) || "Unknown GPU");
       
       // Remove any non-numeric characters for price just in case it's formatted like "Rp 15.000.000"
