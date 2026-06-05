@@ -14,7 +14,7 @@ export default function Footer() {
             </p>
           </div>
           <div>
-            <h4 className="font-bold text-sm mb-3 text-brutal-yellow">Peneliti</h4>
+            <h4 className="font-bold text-sm mb-3 text-brutal-yellow">Tim</h4>
             <ul className="space-y-1 text-sm text-gray-400">
               <li>Jagarya Vanneska</li>
               <li>Dionisius Avendrata Putra</li>

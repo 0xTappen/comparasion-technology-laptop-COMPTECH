@@ -34,7 +34,7 @@ export default function HeroSection() {
 
         {/* Authors */}
         <div className="brutal-card p-4 md:p-6 inline-block bg-white max-w-2xl">
-          <p className="text-xs font-mono uppercase tracking-widest text-gray-500 mb-3">Peneliti</p>
+          <p className="text-xs font-mono uppercase tracking-widest text-gray-500 mb-3">Tim</p>
           <div className="flex flex-wrap justify-center gap-3">
             {["Jagarya Vanneska", "Dionisius Avendrata Putra", "Erwin Wijaya"].map((name) => (
               <span
