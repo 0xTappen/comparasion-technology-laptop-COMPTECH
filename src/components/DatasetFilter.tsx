@@ -97,27 +97,29 @@ export default function DatasetFilter({ filters, setFilters, categories }: Props
         />
 
         <CustomSelect
-          label="Minimal RAM"
+          label="Kapasitas RAM"
           value={filters.minRam}
           onChange={(val) => setFilters({ ...filters, minRam: Number(val) })}
           options={[
             { label: "Semua RAM", value: 0 },
-            { label: ">= 4 GB", value: 4 },
-            { label: ">= 8 GB", value: 8 },
-            { label: ">= 16 GB", value: 16 },
-            { label: ">= 32 GB", value: 32 },
+            { label: "4 GB", value: 4 },
+            { label: "8 GB", value: 8 },
+            { label: "16 GB", value: 16 },
+            { label: "32 GB", value: 32 },
+            { label: "64 GB", value: 64 },
           ]}
         />
 
         <CustomSelect
-          label="Minimal Storage"
+          label="Kapasitas Storage"
           value={filters.minStorage}
           onChange={(val) => setFilters({ ...filters, minStorage: Number(val) })}
           options={[
             { label: "Semua Storage", value: 0 },
-            { label: ">= 256 GB", value: 256 },
-            { label: ">= 512 GB", value: 512 },
-            { label: ">= 1 TB", value: 1000 },
+            { label: "256 GB", value: 256 },
+            { label: "512 GB", value: 512 },
+            { label: "1 TB", value: 1000 },
+            { label: "2 TB", value: 2000 },
           ]}
         />
 

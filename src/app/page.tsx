@@ -33,8 +33,8 @@ export default function Home() {
   const filteredLaptopData = useMemo(() => {
     return laptopData.filter((l) => {
       if (filters.maxPrice > 0 && l.price > filters.maxPrice) return false;
-      if (filters.minRam > 0 && l.ram < filters.minRam) return false;
-      if (filters.minStorage > 0 && l.storage < filters.minStorage) return false;
+      if (filters.minRam > 0 && l.ram !== filters.minRam) return false;
+      if (filters.minStorage > 0 && l.storage !== filters.minStorage) return false;
       if (filters.category !== "All" && l.category !== filters.category) return false;
       return true;
     });
