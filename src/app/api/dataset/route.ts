@@ -7,7 +7,7 @@ export async function GET() {
     const filePath = path.join(
       process.cwd(),
       "dataset",
-      "Dataset_100_Laptop_SPK_Informatika.xlsx"
+      "Dataset_Master_1000_Laptop_SPK.xlsx"
     );
     const buffer = await readFile(filePath);
 
@@ -17,7 +17,7 @@ export async function GET() {
         "Content-Type":
           "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
         "Content-Disposition":
-          'attachment; filename="Dataset_100_Laptop_SPK_Informatika.xlsx"',
+          'attachment; filename="Dataset_Master_1000_Laptop_SPK.xlsx"',
       },
     });
   } catch (error) {

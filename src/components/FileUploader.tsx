@@ -92,7 +92,7 @@ export default function FileUploader({ onDataLoaded, dataCount, isLoading, setIs
         >
           <Database size={32} />
           <span className="font-bold text-lg">Load Dataset Default</span>
-          <span className="text-sm opacity-70">100 Laptop SPK Informatika</span>
+          <span className="text-sm opacity-70">1000 Laptop SPK Informatika</span>
         </button>
       </div>
 

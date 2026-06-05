@@ -81,31 +81,7 @@ export default function KriteriaSection() {
           ))}
         </div>
 
-        {/* Formula Overview */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8">
-          <div className="brutal-card bg-brutal-green p-6">
-            <h3 className="font-bold text-lg mb-3 flex items-center gap-2">
-              <span className="bg-black text-brutal-green px-2 py-0.5 text-sm font-mono">SAW</span>
-              Simple Additive Weighting
-            </h3>
-            <div className="bg-white border-2 border-black p-3 font-mono text-sm">
-              <p className="mb-1">Benefit: r<sub>ij</sub> = x<sub>ij</sub> / max(x<sub>j</sub>)</p>
-              <p className="mb-1">Cost: r<sub>ij</sub> = min(x<sub>j</sub>) / x<sub>ij</sub></p>
-              <p className="font-bold mt-2">V<sub>i</sub> = Σ w<sub>j</sub> · r<sub>ij</sub></p>
-            </div>
-          </div>
-          <div className="brutal-card bg-brutal-pink p-6">
-            <h3 className="font-bold text-lg mb-3 flex items-center gap-2">
-              <span className="bg-black text-brutal-pink px-2 py-0.5 text-sm font-mono">TOPSIS</span>
-              Technique for Order Preference
-            </h3>
-            <div className="bg-white border-2 border-black p-3 font-mono text-sm">
-              <p className="mb-1">r<sub>ij</sub> = x<sub>ij</sub> / √(Σ x<sub>ij</sub>²)</p>
-              <p className="mb-1">D⁺ = √(Σ(v<sub>ij</sub> - A⁺<sub>j</sub>)²)</p>
-              <p className="font-bold mt-2">C<sub>i</sub> = D⁻ / (D⁺ + D⁻)</p>
-            </div>
-          </div>
-        </div>
+
       </div>
     </section>
   );
