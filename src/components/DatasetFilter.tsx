@@ -1,5 +1,6 @@
 "use client";
-import { Filter } from "lucide-react";
+import { useState, useRef, useEffect } from "react";
+import { Filter, ChevronDown } from "lucide-react";
 
 export interface FilterOptions {
   maxPrice: number;
@@ -14,77 +15,121 @@ interface Props {
   categories: string[];
 }
 
+interface CustomSelectProps {
+  label: string;
+  value: string | number;
+  options: { label: string; value: string | number }[];
+  onChange: (value: string | number) => void;
+}
+
+function CustomSelect({ label, value, options, onChange }: CustomSelectProps) {
+  const [isOpen, setIsOpen] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  const selectedOption = options.find((o) => o.value === value) || options[0];
+
+  return (
+    <div className="flex flex-col gap-1 relative" ref={containerRef}>
+      <label className="text-sm font-bold">{label}</label>
+      <button
+        type="button"
+        onClick={() => setIsOpen(!isOpen)}
+        className="brutal-input bg-white w-full font-mono text-sm p-3 cursor-pointer flex justify-between items-center text-left"
+      >
+        <span className="truncate">{selectedOption.label}</span>
+        <ChevronDown size={16} className={`transition-transform ${isOpen ? "rotate-180" : ""}`} />
+      </button>
+
+      {isOpen && (
+        <div className="absolute top-full left-0 right-0 mt-2 bg-white border-4 border-black shadow-[4px_4px_0px_rgba(0,0,0,1)] z-50 max-h-60 overflow-y-auto">
+          {options.map((option) => (
+            <button
+              key={option.value}
+              type="button"
+              className={`w-full text-left px-4 py-3 font-mono text-sm border-b-2 border-black last:border-b-0 hover:bg-brutal-yellow transition-colors ${
+                value === option.value ? "bg-brutal-yellow font-bold" : ""
+              }`}
+              onClick={() => {
+                onChange(option.value);
+                setIsOpen(false);
+              }}
+            >
+              {option.label}
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
 export default function DatasetFilter({ filters, setFilters, categories }: Props) {
   return (
     <div className="brutal-card bg-brutal-orange p-4 md:p-6 mt-6">
-      <div className="flex items-center gap-3 mb-4">
+      <div className="flex items-center gap-3 mb-6">
         <Filter size={24} />
         <h3 className="font-bold text-xl">Filter Data</h3>
       </div>
       
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
-        {/* Harga */}
-        <div className="flex flex-col gap-1">
-          <label className="text-sm font-bold">Maksimal Harga</label>
-          <select 
-            value={filters.maxPrice}
-            onChange={(e) => setFilters({...filters, maxPrice: Number(e.target.value)})}
-            className="brutal-input bg-white w-full font-mono text-sm p-2 cursor-pointer"
-          >
-            <option value={0}>Semua Harga</option>
-            <option value={5000000}>&lt; Rp 5.000.000</option>
-            <option value={10000000}>&lt; Rp 10.000.000</option>
-            <option value={15000000}>&lt; Rp 15.000.000</option>
-            <option value={20000000}>&lt; Rp 20.000.000</option>
-            <option value={30000000}>&lt; Rp 30.000.000</option>
-          </select>
-        </div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+        <CustomSelect
+          label="Maksimal Harga"
+          value={filters.maxPrice}
+          onChange={(val) => setFilters({ ...filters, maxPrice: Number(val) })}
+          options={[
+            { label: "Semua Harga", value: 0 },
+            { label: "< Rp 5.000.000", value: 5000000 },
+            { label: "< Rp 10.000.000", value: 10000000 },
+            { label: "< Rp 15.000.000", value: 15000000 },
+            { label: "< Rp 20.000.000", value: 20000000 },
+            { label: "< Rp 30.000.000", value: 30000000 },
+          ]}
+        />
 
-        {/* RAM */}
-        <div className="flex flex-col gap-1">
-          <label className="text-sm font-bold">Minimal RAM</label>
-          <select 
-            value={filters.minRam}
-            onChange={(e) => setFilters({...filters, minRam: Number(e.target.value)})}
-            className="brutal-input bg-white w-full font-mono text-sm p-2 cursor-pointer"
-          >
-            <option value={0}>Semua RAM</option>
-            <option value={4}>&gt;= 4 GB</option>
-            <option value={8}>&gt;= 8 GB</option>
-            <option value={16}>&gt;= 16 GB</option>
-            <option value={32}>&gt;= 32 GB</option>
-          </select>
-        </div>
+        <CustomSelect
+          label="Minimal RAM"
+          value={filters.minRam}
+          onChange={(val) => setFilters({ ...filters, minRam: Number(val) })}
+          options={[
+            { label: "Semua RAM", value: 0 },
+            { label: ">= 4 GB", value: 4 },
+            { label: ">= 8 GB", value: 8 },
+            { label: ">= 16 GB", value: 16 },
+            { label: ">= 32 GB", value: 32 },
+          ]}
+        />
 
-        {/* Storage */}
-        <div className="flex flex-col gap-1">
-          <label className="text-sm font-bold">Minimal Storage</label>
-          <select 
-            value={filters.minStorage}
-            onChange={(e) => setFilters({...filters, minStorage: Number(e.target.value)})}
-            className="brutal-input bg-white w-full font-mono text-sm p-2 cursor-pointer"
-          >
-            <option value={0}>Semua Storage</option>
-            <option value={256}>&gt;= 256 GB</option>
-            <option value={512}>&gt;= 512 GB</option>
-            <option value={1000}>&gt;= 1 TB</option>
-          </select>
-        </div>
+        <CustomSelect
+          label="Minimal Storage"
+          value={filters.minStorage}
+          onChange={(val) => setFilters({ ...filters, minStorage: Number(val) })}
+          options={[
+            { label: "Semua Storage", value: 0 },
+            { label: ">= 256 GB", value: 256 },
+            { label: ">= 512 GB", value: 512 },
+            { label: ">= 1 TB", value: 1000 },
+          ]}
+        />
 
-        {/* Category */}
-        <div className="flex flex-col gap-1">
-          <label className="text-sm font-bold">Kategori</label>
-          <select 
-            value={filters.category}
-            onChange={(e) => setFilters({...filters, category: e.target.value})}
-            className="brutal-input bg-white w-full font-mono text-sm p-2 cursor-pointer"
-          >
-            <option value="All">Semua Kategori</option>
-            {categories.map(c => (
-              <option key={c} value={c}>{c}</option>
-            ))}
-          </select>
-        </div>
+        <CustomSelect
+          label="Kategori"
+          value={filters.category}
+          onChange={(val) => setFilters({ ...filters, category: String(val) })}
+          options={[
+            { label: "Semua Kategori", value: "All" },
+            ...categories.map((c) => ({ label: c, value: c })),
+          ]}
+        />
       </div>
     </div>
   );

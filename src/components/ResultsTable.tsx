@@ -15,6 +15,7 @@ export default function ResultsTable({ results }: Props) {
   const [showCount, setShowCount] = useState(10);
   const [sortField, setSortField] = useState<SortField>("sawRank");
   const [sortAsc, setSortAsc] = useState(true);
+  const [viewMode, setViewMode] = useState<"Compare" | "SAW" | "TOPSIS">("Compare");
 
   const sorted = useMemo(() => {
     const arr = [...results];
@@ -31,7 +32,21 @@ export default function ResultsTable({ results }: Props) {
       setSortAsc(!sortAsc);
     } else {
       setSortField(field);
-      setSortAsc(field === "sawRank" || field === "topsisRank");
+      setSortAsc(field === "sawRank" || field === "topsisRank" || field === "delta");
+    }
+  };
+
+  const handleViewModeChange = (mode: "Compare" | "SAW" | "TOPSIS") => {
+    setViewMode(mode);
+    if (mode === "SAW") {
+      setSortField("sawRank");
+      setSortAsc(true);
+    } else if (mode === "TOPSIS") {
+      setSortField("topsisRank");
+      setSortAsc(true);
+    } else {
+      setSortField("sawRank");
+      setSortAsc(true);
     }
   };
 
@@ -53,11 +68,38 @@ export default function ResultsTable({ results }: Props) {
             Section 03
           </span>
         </div>
-        <h2 className="text-3xl md:text-5xl font-bold mb-4">Hasil Komparasi</h2>
+        <h2 className="text-3xl md:text-5xl font-bold mb-4">Hasil Kalkulasi &amp; Klasemen</h2>
         <p className="text-lg mb-6 max-w-2xl text-gray-700">
-          Peringkat laptop berdasarkan metode SAW dan TOPSIS. Delta menunjukkan pergeseran
-          posisi antara kedua metode.
+          Lihat klasemen akhir berdasarkan metode SAW, metode TOPSIS, atau bandingkan keduanya secara langsung.
         </p>
+
+        {/* View Mode Controls */}
+        <div className="flex flex-wrap gap-3 mb-6">
+          <button
+            onClick={() => handleViewModeChange("Compare")}
+            className={`brutal-hover border-3 border-black px-4 py-2 font-bold text-sm shadow-[4px_4px_0px_rgba(0,0,0,1)] cursor-pointer ${
+              viewMode === "Compare" ? "bg-black text-white" : "bg-white"
+            }`}
+          >
+            Mode Komparasi (SAW vs TOPSIS)
+          </button>
+          <button
+            onClick={() => handleViewModeChange("SAW")}
+            className={`brutal-hover border-3 border-black px-4 py-2 font-bold text-sm shadow-[4px_4px_0px_rgba(0,0,0,1)] cursor-pointer ${
+              viewMode === "SAW" ? "bg-brutal-green text-black" : "bg-white"
+            }`}
+          >
+            Klasemen Khusus SAW
+          </button>
+          <button
+            onClick={() => handleViewModeChange("TOPSIS")}
+            className={`brutal-hover border-3 border-black px-4 py-2 font-bold text-sm shadow-[4px_4px_0px_rgba(0,0,0,1)] cursor-pointer ${
+              viewMode === "TOPSIS" ? "bg-brutal-pink text-black" : "bg-white"
+            }`}
+          >
+            Klasemen Khusus TOPSIS
+          </button>
+        </div>
 
         {/* Show count controls */}
         <div className="flex flex-wrap items-center gap-2 mb-6">
@@ -85,65 +127,81 @@ export default function ResultsTable({ results }: Props) {
                   <th className="text-left whitespace-nowrap">Laptop</th>
                   <th className="text-left whitespace-nowrap hidden md:table-cell">Kategori</th>
                   <th className="text-right whitespace-nowrap hidden lg:table-cell">Harga</th>
-                  <th
-                    onClick={() => handleSort("sawScore")}
-                    className="text-center whitespace-nowrap cursor-pointer hover:bg-brutal-green/30 select-none"
-                  >
-                    <div className="flex items-center justify-center gap-1">
-                      SAW Score <SortIcon field="sawScore" />
-                    </div>
-                  </th>
-                  <th
-                    onClick={() => handleSort("sawRank")}
-                    className="text-center whitespace-nowrap cursor-pointer hover:bg-brutal-green/30 select-none"
-                  >
-                    <div className="flex items-center justify-center gap-1">
-                      Rank SAW <SortIcon field="sawRank" />
-                    </div>
-                  </th>
-                  <th
-                    onClick={() => handleSort("topsisScore")}
-                    className="text-center whitespace-nowrap cursor-pointer hover:bg-brutal-pink/30 select-none"
-                  >
-                    <div className="flex items-center justify-center gap-1">
-                      TOPSIS Score <SortIcon field="topsisScore" />
-                    </div>
-                  </th>
-                  <th
-                    onClick={() => handleSort("topsisRank")}
-                    className="text-center whitespace-nowrap cursor-pointer hover:bg-brutal-pink/30 select-none"
-                  >
-                    <div className="flex items-center justify-center gap-1">
-                      Rank TOPSIS <SortIcon field="topsisRank" />
-                    </div>
-                  </th>
-                  <th
-                    onClick={() => handleSort("delta")}
-                    className="text-center whitespace-nowrap cursor-pointer hover:bg-brutal-yellow/30 select-none"
-                  >
-                    <div className="flex items-center justify-center gap-1">
-                      Δ Delta <SortIcon field="delta" />
-                    </div>
-                  </th>
+                  
+                  {(viewMode === "Compare" || viewMode === "SAW") && (
+                    <>
+                      <th
+                        onClick={() => handleSort("sawScore")}
+                        className="text-center whitespace-nowrap cursor-pointer hover:bg-brutal-green/30 select-none"
+                      >
+                        <div className="flex items-center justify-center gap-1">
+                          SAW Score <SortIcon field="sawScore" />
+                        </div>
+                      </th>
+                      <th
+                        onClick={() => handleSort("sawRank")}
+                        className="text-center whitespace-nowrap cursor-pointer hover:bg-brutal-green/30 select-none"
+                      >
+                        <div className="flex items-center justify-center gap-1">
+                          Rank SAW <SortIcon field="sawRank" />
+                        </div>
+                      </th>
+                    </>
+                  )}
+
+                  {(viewMode === "Compare" || viewMode === "TOPSIS") && (
+                    <>
+                      <th
+                        onClick={() => handleSort("topsisScore")}
+                        className="text-center whitespace-nowrap cursor-pointer hover:bg-brutal-pink/30 select-none"
+                      >
+                        <div className="flex items-center justify-center gap-1">
+                          TOPSIS Score <SortIcon field="topsisScore" />
+                        </div>
+                      </th>
+                      <th
+                        onClick={() => handleSort("topsisRank")}
+                        className="text-center whitespace-nowrap cursor-pointer hover:bg-brutal-pink/30 select-none"
+                      >
+                        <div className="flex items-center justify-center gap-1">
+                          Rank TOPSIS <SortIcon field="topsisRank" />
+                        </div>
+                      </th>
+                    </>
+                  )}
+
+                  {viewMode === "Compare" && (
+                    <th
+                      onClick={() => handleSort("delta")}
+                      className="text-center whitespace-nowrap cursor-pointer hover:bg-brutal-yellow/30 select-none"
+                    >
+                      <div className="flex items-center justify-center gap-1">
+                        Δ Delta <SortIcon field="delta" />
+                      </div>
+                    </th>
+                  )}
                 </tr>
               </thead>
               <tbody>
                 {sorted.map((r, i) => {
-                  const medal = sortField === "sawRank" && sortAsc && i < 3;
+                  let rankField = sortField === "sawRank" || sortField === "topsisRank" ? sortField : viewMode === "TOPSIS" ? "topsisRank" : "sawRank";
+                  const medal = sortAsc && r[rankField] <= 3;
+                  const medalIndex = r[rankField] - 1;
+                  
                   return (
                     <tr
                       key={r.id}
                       className={`hover:bg-brutal-yellow/20 transition-colors ${
-                        medal ? MEDAL_COLORS[i] + "/30" : ""
+                        medal && medalIndex < 3 ? MEDAL_COLORS[medalIndex] + "/30" : ""
                       }`}
                     >
                       <td className="text-center">
-                        {medal ? (
-                          <span className={`${MEDAL_COLORS[i]} border-2 border-black w-7 h-7 inline-flex items-center justify-center font-bold text-xs`}>
-                            {i + 1}
+                        {medal && medalIndex < 3 ? (
+                          <span className={`${MEDAL_COLORS[medalIndex]} border-2 border-black w-7 h-7 inline-flex items-center justify-center font-bold text-xs`}>
+                            {r[rankField]}
                           </span>
                         ) : (
-                          <span className="font-mono text-xs">{i + 1}</span>
+                          <span className="font-mono text-xs">{r[rankField]}</span>
                         )}
                       </td>
                       <td>
@@ -161,33 +219,46 @@ export default function ResultsTable({ results }: Props) {
                       <td className="text-right font-mono text-xs whitespace-nowrap hidden lg:table-cell">
                         {formatPrice(r.price)}
                       </td>
-                      <td className="text-center">
-                        <span className="bg-brutal-green/30 border border-black px-2 py-0.5 font-mono text-xs font-bold">
-                          {r.sawScore.toFixed(4)}
-                        </span>
-                      </td>
-                      <td className="text-center font-bold font-mono">{r.sawRank}</td>
-                      <td className="text-center">
-                        <span className="bg-brutal-pink/30 border border-black px-2 py-0.5 font-mono text-xs font-bold">
-                          {r.topsisScore.toFixed(4)}
-                        </span>
-                      </td>
-                      <td className="text-center font-bold font-mono">{r.topsisRank}</td>
-                      <td className="text-center">
-                        <span
-                          className={`font-bold font-mono text-sm px-2 py-0.5 border-2 border-black inline-block min-w-[2rem] ${
-                            r.delta === 0
-                              ? "bg-brutal-green"
-                              : r.delta <= 3
-                              ? "bg-brutal-yellow"
-                              : r.delta <= 10
-                              ? "bg-brutal-orange"
-                              : "bg-brutal-red text-white"
-                          }`}
-                        >
-                          {r.delta}
-                        </span>
-                      </td>
+                      
+                      {(viewMode === "Compare" || viewMode === "SAW") && (
+                        <>
+                          <td className="text-center">
+                            <span className="bg-brutal-green/30 border border-black px-2 py-0.5 font-mono text-xs font-bold">
+                              {r.sawScore.toFixed(4)}
+                            </span>
+                          </td>
+                          <td className="text-center font-bold font-mono">{r.sawRank}</td>
+                        </>
+                      )}
+
+                      {(viewMode === "Compare" || viewMode === "TOPSIS") && (
+                        <>
+                          <td className="text-center">
+                            <span className="bg-brutal-pink/30 border border-black px-2 py-0.5 font-mono text-xs font-bold">
+                              {r.topsisScore.toFixed(4)}
+                            </span>
+                          </td>
+                          <td className="text-center font-bold font-mono">{r.topsisRank}</td>
+                        </>
+                      )}
+
+                      {viewMode === "Compare" && (
+                        <td className="text-center">
+                          <span
+                            className={`font-bold font-mono text-sm px-2 py-0.5 border-2 border-black inline-block min-w-[2rem] ${
+                              r.delta === 0
+                                ? "bg-brutal-green"
+                                : r.delta <= 3
+                                ? "bg-brutal-yellow"
+                                : r.delta <= 10
+                                ? "bg-brutal-orange"
+                                : "bg-brutal-red text-white"
+                            }`}
+                          >
+                            {r.delta}
+                          </span>
+                        </td>
+                      )}
                     </tr>
                   );
                 })}
@@ -197,13 +268,15 @@ export default function ResultsTable({ results }: Props) {
         </div>
 
         {/* Legend */}
-        <div className="flex flex-wrap gap-3 mt-4">
-          <span className="text-xs font-bold">Delta Legend:</span>
-          <span className="text-xs flex items-center gap-1"><span className="w-3 h-3 bg-brutal-green border border-black inline-block" /> 0 (Sama)</span>
-          <span className="text-xs flex items-center gap-1"><span className="w-3 h-3 bg-brutal-yellow border border-black inline-block" /> 1-3 (Kecil)</span>
-          <span className="text-xs flex items-center gap-1"><span className="w-3 h-3 bg-brutal-orange border border-black inline-block" /> 4-10 (Sedang)</span>
-          <span className="text-xs flex items-center gap-1"><span className="w-3 h-3 bg-brutal-red border border-black inline-block" /> &gt;10 (Besar)</span>
-        </div>
+        {viewMode === "Compare" && (
+          <div className="flex flex-wrap gap-3 mt-4">
+            <span className="text-xs font-bold">Delta Legend:</span>
+            <span className="text-xs flex items-center gap-1"><span className="w-3 h-3 bg-brutal-green border border-black inline-block" /> 0 (Sama)</span>
+            <span className="text-xs flex items-center gap-1"><span className="w-3 h-3 bg-brutal-yellow border border-black inline-block" /> 1-3 (Kecil)</span>
+            <span className="text-xs flex items-center gap-1"><span className="w-3 h-3 bg-brutal-orange border border-black inline-block" /> 4-10 (Sedang)</span>
+            <span className="text-xs flex items-center gap-1"><span className="w-3 h-3 bg-brutal-red border border-black inline-block" /> &gt;10 (Besar)</span>
+          </div>
+        )}
       </div>
     </section>
   );
