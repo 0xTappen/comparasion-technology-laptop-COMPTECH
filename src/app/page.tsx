@@ -1,65 +1,98 @@
-import Image from "next/image";
+"use client";
+
+import { useState, useMemo } from "react";
+import { LaptopData, combineResults, RankedLaptop } from "@/lib/calculations";
+import Navbar from "@/components/Navbar";
+import HeroSection from "@/components/HeroSection";
+import KriteriaSection from "@/components/KriteriaSection";
+import FileUploader from "@/components/FileUploader";
+import DatasetTable from "@/components/DatasetTable";
+import StatsCards from "@/components/StatsCards";
+import ResultsTable from "@/components/ResultsTable";
+import RankChart from "@/components/RankChart";
+import KesimpulanSection from "@/components/KesimpulanSection";
+import Footer from "@/components/Footer";
+import { FlaskConical } from "lucide-react";
 
 export default function Home() {
+  const [laptopData, setLaptopData] = useState<LaptopData[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const results: RankedLaptop[] = useMemo(() => {
+    if (laptopData.length === 0) return [];
+    return combineResults(laptopData);
+  }, [laptopData]);
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <>
+      <Navbar />
+      <main className="flex-1">
+        <HeroSection />
+
+        {/* Marquee Divider */}
+        <div className="bg-black text-white border-y-4 border-black overflow-hidden py-2">
+          <div className="animate-marquee whitespace-nowrap flex gap-8 text-sm font-mono font-bold">
+            {Array.from({ length: 4 }).map((_, i) => (
+              <span key={i} className="flex gap-8">
+                <span className="text-brutal-yellow">★ SAW METHOD</span>
+                <span>•</span>
+                <span className="text-brutal-pink">★ TOPSIS METHOD</span>
+                <span>•</span>
+                <span className="text-brutal-cyan">★ 100 LAPTOP DATASET</span>
+                <span>•</span>
+                <span className="text-brutal-green">★ MULTI-CRITERIA DECISION</span>
+                <span>•</span>
+              </span>
+            ))}
+          </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
+
+        <KriteriaSection />
+
+        {/* Dataset Section */}
+        <section id="dataset" className="py-16 px-4 bg-brutal-white">
+          <div className="max-w-7xl mx-auto">
+            {/* Section Header */}
+            <div className="flex items-center gap-3 mb-2">
+              <FlaskConical size={28} />
+              <span className="text-xs font-mono uppercase tracking-widest bg-black text-white px-3 py-1">
+                Section 02
+              </span>
+            </div>
+            <h2 className="text-3xl md:text-5xl font-bold mb-4">
+              Dataset &amp; Kalkulasi
+            </h2>
+            <p className="text-lg mb-8 max-w-2xl text-gray-700">
+              Upload file Excel atau gunakan dataset default untuk menjalankan
+              perhitungan SAW dan TOPSIS secara dinamis pada seluruh data.
+            </p>
+
+            <FileUploader
+              onDataLoaded={setLaptopData}
+              dataCount={laptopData.length}
+              isLoading={isLoading}
+              setIsLoading={setIsLoading}
             />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
+
+            {laptopData.length > 0 && (
+              <DatasetTable data={laptopData} />
+            )}
+          </div>
+        </section>
+
+        {/* Results Section */}
+        {results.length > 0 && (
+          <div className="max-w-7xl mx-auto px-4">
+            <StatsCards results={results} />
+            <RankChart results={results} />
+          </div>
+        )}
+
+        {results.length > 0 && <ResultsTable results={results} />}
+
+        <KesimpulanSection />
       </main>
-    </div>
+      <Footer />
+    </>
   );
 }
