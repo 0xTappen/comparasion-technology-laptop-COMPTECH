@@ -11,6 +11,11 @@ type SortField = "sawRank" | "topsisRank" | "delta" | "sawScore" | "topsisScore"
 
 const MEDAL_COLORS = ["bg-brutal-yellow", "bg-gray-300", "bg-brutal-orange"];
 
+function renderSortIcon(field: SortField, sortField: SortField, sortAsc: boolean) {
+  if (sortField !== field) return <ArrowUpDown size={12} className="opacity-30" />;
+  return sortAsc ? <ArrowUp size={12} /> : <ArrowDown size={12} />;
+}
+
 export default function ResultsTable({ results }: Props) {
   const [showCount, setShowCount] = useState(10);
   const [sortField, setSortField] = useState<SortField>("sawRank");
@@ -50,16 +55,11 @@ export default function ResultsTable({ results }: Props) {
     }
   };
 
-  const SortIcon = ({ field }: { field: SortField }) => {
-    if (sortField !== field) return <ArrowUpDown size={12} className="opacity-30" />;
-    return sortAsc ? <ArrowUp size={12} /> : <ArrowDown size={12} />;
-  };
-
   const formatPrice = (p: number) =>
-    new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR", maximumFractionDigits: 0 }).format(p);
+    new Intl.NumberFormat("en-US", { style: "currency", currency: "IDR", maximumFractionDigits: 0 }).format(p);
 
   return (
-    <section id="hasil" className="py-16 px-4">
+    <section id="results" className="py-16 px-4">
       <div className="max-w-7xl mx-auto">
         {/* Section Header */}
         <div className="flex items-center gap-3 mb-2">
@@ -68,9 +68,9 @@ export default function ResultsTable({ results }: Props) {
             Section 03
           </span>
         </div>
-        <h2 className="text-3xl md:text-5xl font-bold mb-4">Hasil Kalkulasi &amp; Klasemen</h2>
+        <h2 className="text-3xl md:text-5xl font-bold mb-4">Calculation Results &amp; Rankings</h2>
         <p className="text-lg mb-6 max-w-2xl text-gray-700">
-          Lihat klasemen akhir berdasarkan metode SAW, metode TOPSIS, atau bandingkan keduanya secara langsung.
+          View the final rankings based on SAW, TOPSIS, or compare both methods side by side.
         </p>
 
         {/* View Mode Controls */}
@@ -81,7 +81,7 @@ export default function ResultsTable({ results }: Props) {
               viewMode === "Compare" ? "bg-black text-white" : "bg-white"
             }`}
           >
-            Mode Komparasi (SAW vs TOPSIS)
+            Comparison Mode (SAW vs TOPSIS)
           </button>
           <button
             onClick={() => handleViewModeChange("SAW")}
@@ -89,7 +89,7 @@ export default function ResultsTable({ results }: Props) {
               viewMode === "SAW" ? "bg-brutal-green text-black" : "bg-white"
             }`}
           >
-            Klasemen Khusus SAW
+            SAW-Only Ranking
           </button>
           <button
             onClick={() => handleViewModeChange("TOPSIS")}
@@ -97,13 +97,13 @@ export default function ResultsTable({ results }: Props) {
               viewMode === "TOPSIS" ? "bg-brutal-pink text-black" : "bg-white"
             }`}
           >
-            Klasemen Khusus TOPSIS
+            TOPSIS-Only Ranking
           </button>
         </div>
 
         {/* Show count controls */}
         <div className="flex flex-wrap items-center gap-2 mb-6">
-          <span className="text-sm font-bold">Tampilkan:</span>
+          <span className="text-sm font-bold">Show:</span>
           {[10, 25, 50, 100].map((n) => (
             <button
               key={n}
@@ -125,8 +125,8 @@ export default function ResultsTable({ results }: Props) {
                 <tr className="bg-black text-white">
                   <th className="text-center whitespace-nowrap w-12">#</th>
                   <th className="text-left whitespace-nowrap">Laptop</th>
-                  <th className="text-left whitespace-nowrap hidden md:table-cell">Kategori</th>
-                  <th className="text-right whitespace-nowrap hidden lg:table-cell">Harga</th>
+                  <th className="text-left whitespace-nowrap hidden md:table-cell">Category</th>
+                  <th className="text-right whitespace-nowrap hidden lg:table-cell">Price</th>
                   
                   {(viewMode === "Compare" || viewMode === "SAW") && (
                     <>
@@ -135,7 +135,7 @@ export default function ResultsTable({ results }: Props) {
                         className="text-center whitespace-nowrap cursor-pointer hover:bg-brutal-green/30 select-none"
                       >
                         <div className="flex items-center justify-center gap-1">
-                          SAW Score <SortIcon field="sawScore" />
+                          SAW Score {renderSortIcon("sawScore", sortField, sortAsc)}
                         </div>
                       </th>
                       <th
@@ -143,7 +143,7 @@ export default function ResultsTable({ results }: Props) {
                         className="text-center whitespace-nowrap cursor-pointer hover:bg-brutal-green/30 select-none"
                       >
                         <div className="flex items-center justify-center gap-1">
-                          Rank SAW <SortIcon field="sawRank" />
+                          Rank SAW {renderSortIcon("sawRank", sortField, sortAsc)}
                         </div>
                       </th>
                     </>
@@ -156,7 +156,7 @@ export default function ResultsTable({ results }: Props) {
                         className="text-center whitespace-nowrap cursor-pointer hover:bg-brutal-pink/30 select-none"
                       >
                         <div className="flex items-center justify-center gap-1">
-                          TOPSIS Score <SortIcon field="topsisScore" />
+                          TOPSIS Score {renderSortIcon("topsisScore", sortField, sortAsc)}
                         </div>
                       </th>
                       <th
@@ -164,7 +164,7 @@ export default function ResultsTable({ results }: Props) {
                         className="text-center whitespace-nowrap cursor-pointer hover:bg-brutal-pink/30 select-none"
                       >
                         <div className="flex items-center justify-center gap-1">
-                          Rank TOPSIS <SortIcon field="topsisRank" />
+                          Rank TOPSIS {renderSortIcon("topsisRank", sortField, sortAsc)}
                         </div>
                       </th>
                     </>
@@ -176,15 +176,20 @@ export default function ResultsTable({ results }: Props) {
                       className="text-center whitespace-nowrap cursor-pointer hover:bg-brutal-yellow/30 select-none"
                     >
                       <div className="flex items-center justify-center gap-1">
-                        Δ Delta <SortIcon field="delta" />
+                        Δ Delta {renderSortIcon("delta", sortField, sortAsc)}
                       </div>
                     </th>
                   )}
                 </tr>
               </thead>
               <tbody>
-                {sorted.map((r, i) => {
-                  let rankField = sortField === "sawRank" || sortField === "topsisRank" ? sortField : viewMode === "TOPSIS" ? "topsisRank" : "sawRank";
+                {sorted.map((r) => {
+                  const rankField =
+                    sortField === "sawRank" || sortField === "topsisRank"
+                      ? sortField
+                      : viewMode === "TOPSIS"
+                        ? "topsisRank"
+                        : "sawRank";
                   const medal = sortAsc && r[rankField] <= 3;
                   const medalIndex = r[rankField] - 1;
                   
@@ -271,10 +276,10 @@ export default function ResultsTable({ results }: Props) {
         {viewMode === "Compare" && (
           <div className="flex flex-wrap gap-3 mt-4">
             <span className="text-xs font-bold">Delta Legend:</span>
-            <span className="text-xs flex items-center gap-1"><span className="w-3 h-3 bg-brutal-green border border-black inline-block" /> 0 (Sama)</span>
-            <span className="text-xs flex items-center gap-1"><span className="w-3 h-3 bg-brutal-yellow border border-black inline-block" /> 1-3 (Kecil)</span>
-            <span className="text-xs flex items-center gap-1"><span className="w-3 h-3 bg-brutal-orange border border-black inline-block" /> 4-10 (Sedang)</span>
-            <span className="text-xs flex items-center gap-1"><span className="w-3 h-3 bg-brutal-red border border-black inline-block" /> &gt;10 (Besar)</span>
+            <span className="text-xs flex items-center gap-1"><span className="w-3 h-3 bg-brutal-green border border-black inline-block" /> 0 (Same)</span>
+            <span className="text-xs flex items-center gap-1"><span className="w-3 h-3 bg-brutal-yellow border border-black inline-block" /> 1-3 (Small)</span>
+            <span className="text-xs flex items-center gap-1"><span className="w-3 h-3 bg-brutal-orange border border-black inline-block" /> 4-10 (Medium)</span>
+            <span className="text-xs flex items-center gap-1"><span className="w-3 h-3 bg-brutal-red border border-black inline-block" /> &gt;10 (Large)</span>
           </div>
         )}
       </div>

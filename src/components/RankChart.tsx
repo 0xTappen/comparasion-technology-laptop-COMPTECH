@@ -21,7 +21,7 @@ export default function RankChart({ results }: Props) {
   return (
     <div className="brutal-card bg-white p-4 md:p-6 mt-6">
       <h3 className="font-bold text-xl mb-6">
-        Visualisasi Skor — Top 15
+        Score Visualization — Top 15
       </h3>
       <div className="space-y-3">
         {topN.map((r) => {

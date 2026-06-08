@@ -10,16 +10,16 @@ const CRITERIA_COLORS = [
 ];
 
 const CRITERIA_DETAILS = [
-  "Efisiensi anggaran mahasiswa — semakin rendah semakin baik.",
-  "Kemampuan multitasking, kompilasi kode, dan virtualisasi.",
-  "Kapasitas untuk menjalankan IDE berat, Docker, dan VM secara simultan.",
-  "Kecepatan baca/tulis dan kapasitas penyimpanan proyek.",
-  "Akselerasi rendering, machine learning, dan grafis komputasi.",
+  "Student budget efficiency. Lower cost is better.",
+  "Capability for multitasking, code compilation, and virtualization.",
+  "Capacity to run heavy IDEs, Docker, and virtual machines at the same time.",
+  "Read/write speed and storage capacity for project files.",
+  "Acceleration for rendering, machine learning, and computational graphics.",
 ];
 
 export default function KriteriaSection() {
   return (
-    <section id="kriteria" className="py-16 px-4">
+    <section id="criteria" className="py-16 px-4">
       <div className="max-w-6xl mx-auto">
         {/* Section Header */}
         <div className="flex items-center gap-3 mb-2">
@@ -29,11 +29,11 @@ export default function KriteriaSection() {
           </span>
         </div>
         <h2 className="text-3xl md:text-5xl font-bold mb-4">
-          Kriteria &amp; Bobot
+          Criteria &amp; Weights
         </h2>
         <p className="text-lg mb-10 max-w-2xl text-gray-700">
-          Lima kriteria evaluasi yang digunakan dalam proses perhitungan SAW dan TOPSIS,
-          dengan total bobot 100%.
+          Five evaluation criteria used in the SAW and TOPSIS calculation process,
+          with a total combined weight of 100%.
         </p>
 
         {/* Criteria Cards Grid */}

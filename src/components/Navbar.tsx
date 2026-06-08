@@ -3,11 +3,11 @@ import { useState } from "react";
 import { Menu, X, Laptop, FlaskConical, Table2, BarChart3, FileText } from "lucide-react";
 
 const NAV_ITEMS = [
-  { label: "Beranda", href: "#hero", icon: Laptop },
-  { label: "Kriteria", href: "#kriteria", icon: Table2 },
+  { label: "Home", href: "#hero", icon: Laptop },
+  { label: "Criteria", href: "#criteria", icon: Table2 },
   { label: "Dataset", href: "#dataset", icon: FlaskConical },
-  { label: "Hasil", href: "#hasil", icon: BarChart3 },
-  { label: "Kesimpulan", href: "#kesimpulan", icon: FileText },
+  { label: "Results", href: "#results", icon: BarChart3 },
+  { label: "Conclusion", href: "#conclusion", icon: FileText },
 ];
 
 export default function Navbar() {

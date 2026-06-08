@@ -2,16 +2,16 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Sistem Pemilihan Laptop Terbaik — SAW vs TOPSIS",
+  title: "Best Laptop Selection System — SAW vs TOPSIS",
   description:
-    "Sistem Rekomendasi Komparasi Metode SAW dan TOPSIS untuk Pemilihan Laptop Mahasiswa Informatika. Oleh Jagarya Vanneska, Dionisius Avendrata Putra, dan Erwin Wijaya — Universitas Teknokrat Indonesia.",
+    "A comparative recommendation system using the SAW and TOPSIS methods for laptop selection by Informatics students. By Jagarya Vanneska, Dionisius Avendrata Putra, and Erwin Wijaya — Universitas Teknokrat Indonesia.",
   keywords: [
-    "Rekomendasi",
+    "Recommendation",
     "Decision Support System",
     "SAW",
     "TOPSIS",
     "Laptop",
-    "Informatika",
+    "Informatics",
     "MCDM",
   ],
   authors: [
@@ -35,7 +35,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="id" className="scroll-smooth" suppressHydrationWarning>
+    <html lang="en" className="scroll-smooth" suppressHydrationWarning>
       <body className="min-h-screen grid-pattern" suppressHydrationWarning>
         {children}
       </body>

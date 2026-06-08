@@ -1,7 +1,7 @@
 "use client";
 import { useMemo } from "react";
 import { RankedLaptop } from "@/lib/calculations";
-import { BarChart3, TrendingUp, Shuffle, Award } from "lucide-react";
+import { TrendingUp, Shuffle, Award } from "lucide-react";
 
 interface Props {
   results: RankedLaptop[];
@@ -49,17 +49,17 @@ export default function StatsCards({ results }: Props) {
     },
     {
       icon: TrendingUp,
-      label: "Korelasi Spearman",
+      label: "Spearman Correlation",
       value: stats.spearman.toFixed(4),
-      sub: stats.spearman > 0.8 ? "Korelasi Kuat" : stats.spearman > 0.5 ? "Korelasi Sedang" : "Korelasi Lemah",
+      sub: stats.spearman > 0.8 ? "Strong Correlation" : stats.spearman > 0.5 ? "Moderate Correlation" : "Weak Correlation",
       color: "bg-brutal-cyan",
       isMarquee: false,
     },
     {
       icon: Shuffle,
-      label: "Rata-rata Delta",
+      label: "Average Delta",
       value: stats.avgDelta.toFixed(2),
-      sub: `Max: ${stats.maxDelta} | Sama: ${stats.zeroDelta}`,
+      sub: `Max: ${stats.maxDelta} | Equal: ${stats.zeroDelta}`,
       color: "bg-brutal-yellow",
       isMarquee: false,
     },

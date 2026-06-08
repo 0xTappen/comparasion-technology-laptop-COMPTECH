@@ -74,11 +74,11 @@ export interface CriteriaWeight {
 }
 
 export const CRITERIA: CriteriaWeight[] = [
-  { name: "Harga Perangkat", code: "C1", weight: 0.20, type: "cost" },
-  { name: "Performa Prosesor / CPU", code: "C2", weight: 0.25, type: "benefit" },
-  { name: "Kapasitas Memori / RAM", code: "C3", weight: 0.25, type: "benefit" },
-  { name: "Arsitektur & Kapasitas Storage / SSD", code: "C4", weight: 0.15, type: "benefit" },
-  { name: "Kartu Grafis Dedicated / GPU", code: "C5", weight: 0.15, type: "benefit" },
+  { name: "Device Price", code: "C1", weight: 0.20, type: "cost" },
+  { name: "Processor / CPU Performance", code: "C2", weight: 0.25, type: "benefit" },
+  { name: "Memory / RAM Capacity", code: "C3", weight: 0.25, type: "benefit" },
+  { name: "Storage / SSD Architecture and Capacity", code: "C4", weight: 0.15, type: "benefit" },
+  { name: "Dedicated Graphics / GPU", code: "C5", weight: 0.15, type: "benefit" },
 ];
 
 // Convert a laptop row to numeric criteria values
@@ -160,7 +160,6 @@ export function calculateSAW(laptops: LaptopData[]): RankedLaptop[] {
 export function calculateTOPSIS(laptops: LaptopData[]): RankedLaptop[] {
   const matrix = laptops.map(toNumericValues);
   const numCriteria = CRITERIA.length;
-  const n = matrix.length;
 
   // Step 1: Normalize using vector normalization (Euclidean norm)
   const colSumsOfSquares = Array(numCriteria).fill(0);

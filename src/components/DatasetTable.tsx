@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { LaptopData } from "@/lib/calculations";
 import { ChevronLeft, ChevronRight, Search } from "lucide-react";
 
@@ -19,11 +19,6 @@ export default function DatasetTable({ data }: Props) {
   const [page, setPage] = useState(0);
   const [search, setSearch] = useState("");
 
-  // Auto-reset page when the parent data (from filters) changes
-  useEffect(() => {
-    setPage(0);
-  }, [data]);
-
   const filtered = data.filter(
     (l) =>
       l.name.toLowerCase().includes(search.toLowerCase()) ||
@@ -33,10 +28,11 @@ export default function DatasetTable({ data }: Props) {
   );
 
   const totalPages = Math.ceil(filtered.length / ROWS_PER_PAGE);
-  const pageData = filtered.slice(page * ROWS_PER_PAGE, (page + 1) * ROWS_PER_PAGE);
+  const currentPage = Math.min(page, Math.max(totalPages - 1, 0));
+  const pageData = filtered.slice(currentPage * ROWS_PER_PAGE, (currentPage + 1) * ROWS_PER_PAGE);
 
   const formatPrice = (p: number) =>
-    new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR", maximumFractionDigits: 0 }).format(p);
+    new Intl.NumberFormat("en-US", { style: "currency", currency: "IDR", maximumFractionDigits: 0 }).format(p);
 
   return (
     <div className="brutal-card bg-white p-4 md:p-6 mt-6">
@@ -51,7 +47,7 @@ export default function DatasetTable({ data }: Props) {
           <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 opacity-50" />
           <input
             type="text"
-            placeholder="Cari laptop..."
+            placeholder="Search laptops..."
             value={search}
             onChange={(e) => {
               setSearch(e.target.value);
@@ -67,13 +63,13 @@ export default function DatasetTable({ data }: Props) {
           <thead>
             <tr className="bg-black text-white">
               <th className="text-left whitespace-nowrap">#</th>
-              <th className="text-left whitespace-nowrap">Nama Laptop</th>
-              <th className="text-left whitespace-nowrap">Kategori</th>
+              <th className="text-left whitespace-nowrap">Laptop Name</th>
+              <th className="text-left whitespace-nowrap">Category</th>
               <th className="text-left whitespace-nowrap">CPU</th>
               <th className="text-center whitespace-nowrap">RAM</th>
               <th className="text-center whitespace-nowrap">Storage</th>
               <th className="text-left whitespace-nowrap">GPU</th>
-              <th className="text-right whitespace-nowrap">Harga</th>
+              <th className="text-right whitespace-nowrap">Price</th>
             </tr>
           </thead>
           <tbody>
@@ -108,11 +104,11 @@ export default function DatasetTable({ data }: Props) {
             <ChevronLeft size={16} />
           </button>
           <span className="font-mono text-sm font-bold">
-            {page + 1} / {totalPages}
+            {currentPage + 1} / {totalPages}
           </span>
           <button
             onClick={() => setPage((p) => Math.min(totalPages - 1, p + 1))}
-            disabled={page === totalPages - 1}
+            disabled={currentPage === totalPages - 1}
             className="brutal-hover border-3 border-black bg-white px-3 py-2 font-bold text-sm shadow-[4px_4px_0px_rgba(0,0,0,1)] disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer"
           >
             <ChevronRight size={16} />

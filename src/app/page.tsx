@@ -82,11 +82,11 @@ export default function Home() {
               </span>
             </div>
             <h2 className="text-3xl md:text-5xl font-bold mb-4">
-              Dataset &amp; Kalkulasi
+              Dataset &amp; Calculation
             </h2>
             <p className="text-lg mb-8 max-w-2xl text-gray-700">
-              Upload file Excel atau gunakan dataset default untuk menjalankan
-              perhitungan SAW dan TOPSIS secara dinamis pada seluruh data.
+              Upload an Excel file or use the default dataset to run
+              dynamic SAW and TOPSIS calculations across the full dataset.
             </p>
 
             <FileUploader

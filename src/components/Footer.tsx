@@ -9,12 +9,12 @@ export default function Footer() {
               <span className="font-bold">COMPTECH</span>
             </div>
             <p className="text-sm text-gray-400 leading-relaxed">
-              Sistem Rekomendasi Komparasi Laptop untuk Mahasiswa Informatika
-              menggunakan metode SAW dan TOPSIS.
+              A laptop comparison and recommendation system for Informatics students
+              using the SAW and TOPSIS methods.
             </p>
           </div>
           <div>
-            <h4 className="font-bold text-sm mb-3 text-brutal-yellow">Tim</h4>
+            <h4 className="font-bold text-sm mb-3 text-brutal-yellow">Team</h4>
             <ul className="space-y-1 text-sm text-gray-400">
               <li>Jagarya Vanneska</li>
               <li>Dionisius Avendrata Putra</li>
@@ -22,9 +22,9 @@ export default function Footer() {
             </ul>
           </div>
           <div>
-            <h4 className="font-bold text-sm mb-3 text-brutal-yellow">Institusi</h4>
+            <h4 className="font-bold text-sm mb-3 text-brutal-yellow">Institution</h4>
             <p className="text-sm text-gray-400">Universitas Teknokrat Indonesia</p>
-            <p className="text-sm text-gray-400 mt-1">Informatika</p>
+            <p className="text-sm text-gray-400 mt-1">Informatics</p>
           </div>
         </div>
         <div className="border-t border-gray-700 pt-4 flex flex-col sm:flex-row items-center justify-between gap-2">

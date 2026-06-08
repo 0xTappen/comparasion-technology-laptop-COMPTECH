@@ -12,29 +12,29 @@ export default function HeroSection() {
         {/* Badge */}
         <div className="inline-flex items-center gap-2 bg-brutal-cyan border-3 border-black px-4 py-2 text-sm font-bold shadow-[4px_4px_0px_rgba(0,0,0,1)] mb-6">
           <Zap size={16} className="fill-current" />
-          SISTEM REKOMENDASI
+          RECOMMENDATION SYSTEM
         </div>
 
         {/* Main Title */}
         <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold leading-[0.95] tracking-tight mb-6">
-          Sistem Pemilihan
+          Best Laptop
           <br />
           <span className="bg-brutal-yellow px-3 py-1 inline-block border-4 border-black shadow-[6px_6px_0px_rgba(0,0,0,1)] mt-2 -rotate-1">
-            Laptop Terbaik
+            Selection System
           </span>
         </h1>
 
         {/* Subtitle */}
         <p className="text-lg md:text-xl max-w-3xl mx-auto leading-relaxed mb-8 font-medium">
-          Komparasi metode <span className="bg-brutal-green px-1.5 border-2 border-black font-bold">SAW</span> dan{" "}
+          A comparison of the <span className="bg-brutal-green px-1.5 border-2 border-black font-bold">SAW</span> and{" "}
           <span className="bg-brutal-pink px-1.5 border-2 border-black font-bold text-white">TOPSIS</span>{" "}
-          dalam evaluasi sistematis variabel teknis laptop untuk menunjang performa coding, IDE, virtualisasi,
-          dan data science bagi mahasiswa Informatika.
+          methods for a systematic evaluation of laptop technical variables to support coding, IDE workloads,
+          virtualization, and data science for Informatics students.
         </p>
 
         {/* Authors */}
         <div className="brutal-card p-4 md:p-6 inline-block bg-white max-w-2xl">
-          <p className="text-xs font-mono uppercase tracking-widest text-gray-500 mb-3">Tim</p>
+          <p className="text-xs font-mono uppercase tracking-widest text-gray-500 mb-3">Team</p>
           <div className="flex flex-wrap justify-center gap-3">
             {["Jagarya Vanneska", "Dionisius Avendrata Putra", "Erwin Wijaya"].map((name) => (
               <span
@@ -52,8 +52,8 @@ export default function HeroSection() {
 
         {/* Scroll indicator */}
         <div className="mt-12">
-          <a href="#kriteria" className="inline-flex flex-col items-center gap-1 text-sm font-bold opacity-60 hover:opacity-100 transition-opacity">
-            <span>Mulai Eksplorasi</span>
+          <a href="#criteria" className="inline-flex flex-col items-center gap-1 text-sm font-bold opacity-60 hover:opacity-100 transition-opacity">
+            <span>Start Exploring</span>
             <ArrowDown size={20} className="animate-bounce" />
           </a>
         </div>

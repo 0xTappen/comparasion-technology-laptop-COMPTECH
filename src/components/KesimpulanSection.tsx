@@ -2,7 +2,7 @@ import { BookOpen, CheckCircle2, ArrowRight, Lightbulb } from "lucide-react";
 
 export default function KesimpulanSection() {
   return (
-    <section id="kesimpulan" className="py-16 px-4">
+    <section id="conclusion" className="py-16 px-4">
       <div className="max-w-5xl mx-auto">
         {/* Section Header */}
         <div className="flex items-center gap-3 mb-2">
@@ -11,7 +11,7 @@ export default function KesimpulanSection() {
             Section 04
           </span>
         </div>
-        <h2 className="text-3xl md:text-5xl font-bold mb-8">Kesimpulan</h2>
+        <h2 className="text-3xl md:text-5xl font-bold mb-8">Conclusion</h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* SAW Conclusion */}
@@ -22,11 +22,11 @@ export default function KesimpulanSection() {
             </div>
             <ul className="space-y-3">
               {[
-                "Cenderung mengutamakan alternatif dengan raw power tertinggi pada kriteria berbobot besar",
-                "Normalisasi linear membuat perbedaan skor proporsional langsung terhadap nilai mentah",
-                "Bobot CPU (25%) dan RAM (25%) sangat dominan dalam menentukan peringkat",
-                "Cocok untuk pengambil keputusan yang memprioritaskan performa maksimal",
-                "Metode lebih sederhana dan mudah diinterpretasi secara langsung",
+                "Tends to favor alternatives with the highest raw power in heavily weighted criteria",
+                "Linear normalization keeps score differences directly proportional to raw values",
+                "CPU weight (25%) and RAM weight (25%) are highly dominant in determining rank",
+                "Well suited for decision makers who prioritize maximum performance",
+                "The method is simpler and easier to interpret directly",
               ].map((text, i) => (
                 <li key={i} className="flex items-start gap-2 text-sm">
                   <CheckCircle2 size={16} className="shrink-0 mt-0.5" />
@@ -44,11 +44,11 @@ export default function KesimpulanSection() {
             </div>
             <ul className="space-y-3">
               {[
-                "Mengutamakan keseimbangan (balance) antar semua kriteria secara simultan",
-                "Mempertimbangkan jarak terhadap solusi ideal positif DAN negatif",
-                "Normalisasi vektor Euclidean meredam dominasi satu kriteria tunggal",
-                "Laptop dengan spesifikasi merata cenderung mendapat peringkat lebih tinggi",
-                "Cocok untuk keputusan yang membutuhkan pertimbangan trade-off menyeluruh",
+                "Prioritizes balance across all criteria simultaneously",
+                "Considers distance to both the positive and negative ideal solutions",
+                "Euclidean vector normalization reduces the dominance of a single criterion",
+                "Laptops with evenly distributed specifications tend to rank higher",
+                "A strong fit for decisions that require a broader trade-off analysis",
               ].map((text, i) => (
                 <li key={i} className="flex items-start gap-2 text-sm">
                   <CheckCircle2 size={16} className="shrink-0 mt-0.5" />
@@ -64,21 +64,19 @@ export default function KesimpulanSection() {
           <div className="flex items-start gap-3">
             <Lightbulb size={28} className="shrink-0 mt-1" />
             <div>
-              <h3 className="font-bold text-xl mb-3">Temuan Utama</h3>
+              <h3 className="font-bold text-xl mb-3">Key Finding</h3>
               <p className="text-sm leading-relaxed mb-4">
-                Komparasi kedua metode menunjukkan bahwa meskipun terdapat korelasi positif antara hasil
-                peringkat SAW dan TOPSIS, terdapat perbedaan signifikan pada posisi relatif beberapa
-                alternatif. <strong>SAW cenderung menempatkan laptop dengan spesifikasi &quot;puncak&quot;
-                pada satu kriteria dominan</strong> (misal: CPU flagship) di peringkat atas, sementara{" "}
-                <strong>TOPSIS lebih mengapresiasi laptop dengan distribusi spesifikasi yang merata</strong>{" "}
-                dan seimbang di semua kriteria — terutama karena perhitungan jarak dari solusi ideal terburuk
-                (negatif) memberikan penalti pada ketidakseimbangan.
+                The comparison shows that even though SAW and TOPSIS rankings are positively correlated,
+                some alternatives still shift meaningfully in relative position. <strong>SAW tends to place
+                laptops with standout specifications in one dominant criterion</strong> (for example, a flagship
+                CPU) near the top, while <strong>TOPSIS gives more credit to laptops with balanced specifications</strong>{" "}
+                across all criteria because the distance from the negative ideal solution penalizes imbalance.
               </p>
               <div className="flex items-center gap-2 bg-white border-3 border-black p-3 text-sm font-bold">
                 <ArrowRight size={16} />
                 <span>
-                  Rekomendasi: Gunakan TOPSIS untuk keputusan yang membutuhkan balance,
-                  dan SAW ketika performa mentah adalah prioritas utama.
+                  Recommendation: use TOPSIS when you need balanced decision-making,
+                  and SAW when raw performance is the main priority.
                 </span>
               </div>
             </div>

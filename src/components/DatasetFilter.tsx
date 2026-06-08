@@ -78,16 +78,16 @@ export default function DatasetFilter({ filters, setFilters, categories }: Props
     <div className="brutal-card bg-brutal-orange p-4 md:p-6 mt-6">
       <div className="flex items-center gap-3 mb-6">
         <Filter size={24} />
-        <h3 className="font-bold text-xl">Filter Data</h3>
+        <h3 className="font-bold text-xl">Data Filters</h3>
       </div>
       
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
         <CustomSelect
-          label="Maksimal Harga"
+          label="Maximum Price"
           value={filters.maxPrice}
           onChange={(val) => setFilters({ ...filters, maxPrice: Number(val) })}
           options={[
-            { label: "Semua Harga", value: 0 },
+            { label: "All Prices", value: 0 },
             { label: "< Rp 5.000.000", value: 5000000 },
             { label: "< Rp 10.000.000", value: 10000000 },
             { label: "< Rp 15.000.000", value: 15000000 },
@@ -97,11 +97,11 @@ export default function DatasetFilter({ filters, setFilters, categories }: Props
         />
 
         <CustomSelect
-          label="Kapasitas RAM"
+          label="RAM Capacity"
           value={filters.minRam}
           onChange={(val) => setFilters({ ...filters, minRam: Number(val) })}
           options={[
-            { label: "Semua RAM", value: 0 },
+            { label: "All RAM Options", value: 0 },
             { label: "4 GB", value: 4 },
             { label: "8 GB", value: 8 },
             { label: "16 GB", value: 16 },
@@ -111,11 +111,11 @@ export default function DatasetFilter({ filters, setFilters, categories }: Props
         />
 
         <CustomSelect
-          label="Kapasitas Storage"
+          label="Storage Capacity"
           value={filters.minStorage}
           onChange={(val) => setFilters({ ...filters, minStorage: Number(val) })}
           options={[
-            { label: "Semua Storage", value: 0 },
+            { label: "All Storage Options", value: 0 },
             { label: "256 GB", value: 256 },
             { label: "512 GB", value: 512 },
             { label: "1 TB", value: 1000 },
@@ -124,11 +124,11 @@ export default function DatasetFilter({ filters, setFilters, categories }: Props
         />
 
         <CustomSelect
-          label="Kategori"
+          label="Category"
           value={filters.category}
           onChange={(val) => setFilters({ ...filters, category: String(val) })}
           options={[
-            { label: "Semua Kategori", value: "All" },
+            { label: "All Categories", value: "All" },
             ...categories.map((c) => ({ label: c, value: c })),
           ]}
         />

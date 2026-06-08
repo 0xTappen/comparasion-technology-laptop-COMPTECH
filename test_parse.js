@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-require-imports */
 const XLSX = require("xlsx");
 const workbook = XLSX.readFile("dataset/Dataset_Master_1000_Laptop_SPK.xlsx");
 const sheet = workbook.Sheets[workbook.SheetNames[0]];
